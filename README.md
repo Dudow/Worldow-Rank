@@ -16,7 +16,7 @@ Using it you can search for information about all the countries (not really all)
     Native name
     Neighbouring countries
 
-### Créditos: 
+### Credits: 
 
-    Vídeo: https://www.youtube.com/watch?v=v8o9iJU5hEA&feature=youtu.be
-    Repositório: https://github.com/nghiemthu/world-ranks
+    Video: https://www.youtube.com/watch?v=v8o9iJU5hEA&feature=youtu.be
+    Repository: https://github.com/nghiemthu/world-ranks
