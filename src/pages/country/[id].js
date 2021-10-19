@@ -4,8 +4,8 @@ import Layout from "../../components/Layout/Layout.js";
 import styles from "./Country.module.css";
 import ArrowBackRoundedIcon from "@material-ui/icons/ArrowBackRounded";
 
-const getCountry = async (id) => {
-  const res = await fetch(`https://restcountries.eu/rest/v2/alpha/${id}`);
+const getCountry = async (code) => {
+  const res = await fetch(`https://restcountries.com/v2/alpha/${code}`);
   const country = await res.json();
 
   return country;
@@ -16,7 +16,7 @@ const Country = ({ country }) => {
 
   const getBorders = async () => {
     const borders = await Promise.all(
-      country.borders.map((border) => getCountry(border))
+      country.borders.map((border) => getCountry(border.cca2))
     );
 
     setBorders(borders);
@@ -101,7 +101,7 @@ const Country = ({ country }) => {
 
             <div className={styles.details_borders}>
               <div className={styles.details_borders_label}>
-                Neighbouring Countries
+                Neighboring Countries
               </div>
               <div className={styles.details_borders_container}>
                 {borders.map(({ flag, name, alpha3Code }) => (
@@ -126,12 +126,12 @@ const Country = ({ country }) => {
 export default Country;
 
 export const getStaticPaths = async () => {
-  const res = await fetch(`https://restcountries.eu/rest/v2/all`);
+  const res = await fetch(`https://restcountries.com/v2/all`);
   const countries = await res.json();
 
   const paths = countries.map((country) => ({
     params: {
-      id: country.alpha3Code,
+      code: country.cca2,
     },
   }));
 
@@ -142,7 +142,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const country = await getCountry(params.id);
+  const country = await getCountry(params.code);
 
   return {
     props: {
