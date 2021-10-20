@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout.js";
 import styles from "./Country.module.css";
 import ArrowBackRoundedIcon from "@material-ui/icons/ArrowBackRounded";
@@ -11,13 +11,21 @@ const getCountry = async (code) => {
   return country;
 };
 
-const Country = ({ country }) => {
+
+
+const Country = ({ country  }) => {
   const [borders, setBorders] = useState([]);
 
   const getBorders = async () => {
+    if (!country.borders) {
+      return []
+    }
+
     const borders = await Promise.all(
-      country.borders.map((border) => getCountry(border.cca2))
+      country.borders.map((border) => getCountry(border))
     );
+
+    console.log(borders)
 
     setBorders(borders);
   };
@@ -81,9 +89,9 @@ const Country = ({ country }) => {
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Currency</div>
               <div className={styles.details_panel_value}>
-                {country.currencies
+                {country.currencies ? country.currencies
                   .map(({ name, symbol }) => name + " (" + symbol + ")")
-                  .join(", ")}
+                  .join(", ") : 'Unknown'}
               </div>
             </div>
             <div className={styles.details_panel_row}>
@@ -104,16 +112,18 @@ const Country = ({ country }) => {
                 Neighboring Countries
               </div>
               <div className={styles.details_borders_container}>
-                {borders.map(({ flag, name, alpha3Code }) => (
-                  <div key={name} className={styles.details_borders_country}>
-                    <a target="_blank" href={`/country/${alpha3Code}`}>
-                      <div className={styles.lilflag}>
-                        <img src={flag} alt="name" />
-                        <p className={styles.details_borders_name}>{name}</p>
+                {borders.length > 0 ? borders.map((border) => 
+                    (
+                      <div key={name} className={styles.details_borders_country}>
+                        <a target="_blank" href={`/country/${border}`}>
+                          <div className={styles.lilflag}>
+                            <img src={border.flag} alt={border.name} />
+                            <p className={styles.details_borders_name}>{border.name}</p>
+                          </div>
+                        </a>
                       </div>
-                    </a>
-                  </div>
-                ))}
+                    )
+                ) : 'None'}
               </div>
             </div>
           </div>
@@ -131,7 +141,7 @@ export const getStaticPaths = async () => {
 
   const paths = countries.map((country) => ({
     params: {
-      code: country.cca2,
+      id: country.alpha3Code,
     },
   }));
 
@@ -142,7 +152,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const country = await getCountry(params.code);
+  const country = await getCountry(params.id);
 
   return {
     props: {
