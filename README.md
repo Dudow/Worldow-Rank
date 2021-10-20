@@ -14,7 +14,7 @@ Using it you can search for information about all the countries (not really all)
     Language (most used)
     Currency
     Native name
-    Neighbouring countries
+    Neighboring countries
 
 ### Credits: 
 
