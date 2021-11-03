@@ -1,6 +1,6 @@
 # Worldow Rank
 
-### A Javascript project using NextJs and API REST
+### A Javascript project using NextJs, TypeScript and REST
 
 Using it you can search for information about all the countries (not really all)
 
@@ -9,14 +9,20 @@ Using it you can search for information about all the countries (not really all)
     Name
     Population
     Area (km²)
-    Gini coefficient: "represents the income inequality"
+    Gini coefficient: "Represents the income inequality"
     Subregion
-    Language (most used)
+    Language (Most used)
     Currency
     Native name
     Neighboring countries
 
 ### Credits:
 
-    Video: https://www.youtube.com/watch?v=v8o9iJU5hEA&feature=youtu.be
-    Repository: https://github.com/nghiemthu/world-ranks
+    Video:
+    https://www.youtube.com/watch?v=v8o9iJU5hEA&feature=youtu.be (Maybe outdated)
+    Repository:
+    https://github.com/nghiemthu/world-ranks
+    Api:
+    https://restcountries.com/
+
+### Obs.: I'm remaking it, but the style part will take some time.
