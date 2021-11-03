@@ -1,6 +1,6 @@
 # Worldow Rank
 
-### A Javascript project using NextJs, TypeScript and REST
+### A no-more-Javascript project using NextJs, TypeScript and REST
 
 Using it you can search for information about all the countries (not really all)
 
