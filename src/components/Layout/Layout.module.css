@@ -39,7 +39,18 @@
   align-items: center;
 }
 
-.footer > p {
+.footer a {
+  display: flex;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.footer a:hover {
+  background-color: #798188;
+  transition: 0.4s;
+}
+
+.footer a > p {
   color: rgb(255, 0, 85);
   margin: 0;
   display: flex;
