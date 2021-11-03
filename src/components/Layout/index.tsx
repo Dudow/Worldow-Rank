@@ -36,10 +36,6 @@ const Layout = ({ children, title }) => {
     <div className={styles.container}>
       <Head>
         <title>{title}</title>
-        <link
-          rel="icon"
-          href="https://resume-mocha.vercel.app/assets/logo.png"
-        />
       </Head>
 
       <header className={styles.header}>
@@ -58,13 +54,15 @@ const Layout = ({ children, title }) => {
       <main className={styles.main}>{children}</main>
 
       <footer className={styles.footer}>
-        <p>
-          <FavoriteRoundedIcon />
-        </p>{' '}
-        Dudow{' '}
-        <p>
-          <FavoriteRoundedIcon />
-        </p>
+        <a target="_blank" href={`https://github.com/Dudow`}>
+          <p>
+            <FavoriteRoundedIcon />
+          </p>{' '}
+          Dudow{' '}
+          <p>
+            <FavoriteRoundedIcon />
+          </p>
+        </a>
       </footer>
     </div>
   );
