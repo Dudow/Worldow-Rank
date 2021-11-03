@@ -9,9 +9,10 @@ export default function Home({ countries }) {
 
   const filteredCountries = countries.filter(
     country =>
-      String(country.name).toLowerCase().includes(keyword) ||
+      String(country.name.common).toLowerCase().includes(keyword) ||
+      String(country.name.official).toLowerCase().includes(keyword) ||
       country.region.toLowerCase().includes(keyword) ||
-      country.subregion.toLowerCase().includes(keyword),
+      (country.subregion && country.subregion.toLowerCase().includes(keyword)),
   );
 
   const onInputChange = event => {
@@ -37,7 +38,7 @@ export default function Home({ countries }) {
 }
 
 export const getStaticProps = async () => {
-  const res = await fetch('https://restcountries.com/v2/all');
+  const res = await fetch('https://restcountries.com/v3.1/all');
   const countries = await res.json();
 
   return {

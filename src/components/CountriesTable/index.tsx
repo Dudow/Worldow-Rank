@@ -39,8 +39,8 @@ const SortArrow = ({ direction }) => {
 };
 
 const CountriesTable = ({ countries }) => {
-  const [direction, setDirection] = useState();
-  const [value, setValue] = useState();
+  const [direction, setDirection] = useState<string>('');
+  const [value, setValue] = useState<string>('');
 
   const orderedCountries = orderBy(countries, value, direction);
 
@@ -104,12 +104,12 @@ const CountriesTable = ({ countries }) => {
       </div>
 
       {orderedCountries.map(country => (
-        <Link href={`/country/${country.alpha3Code}`} key={country.name}>
+        <Link href={`/country/${country.cca3}`} key={country.name.common}>
           <div className={styles.row}>
             <div className={styles.flag}>
-              <img src={country.flag} alt={country.name} />
+              <img src={country.flags.svg} alt={country.name.common} />
             </div>
-            <div className={styles.name}>{country.name}</div>
+            <div className={styles.name}>{country.name.common}</div>
 
             <div className={styles.population}>
               {new Intl.NumberFormat('ja-JP').format(country.population)}
@@ -121,7 +121,11 @@ const CountriesTable = ({ countries }) => {
                 : 'Unknown'}
             </div>
 
-            <div className={styles.gini}>{country.gini || 'Unknown'} </div>
+            <div className={styles.gini}>
+              {country.gini
+                ? country.gini[Object.keys(country.gini)[0]]
+                : 'Unknown'}{' '}
+            </div>
           </div>
         </Link>
       ))}

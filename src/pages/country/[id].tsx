@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import styles from './Country.module.css';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
@@ -23,8 +23,6 @@ const Country = ({ country }) => {
       country.borders.map(border => getCountry(border)),
     );
 
-    console.log(borders);
-
     setBorders(borders);
   };
 
@@ -33,7 +31,7 @@ const Country = ({ country }) => {
   }, []);
 
   return (
-    <Layout title={country.name}>
+    <Layout title={country.name + ' - Worldow Rank'}>
       <div className={styles.container}>
         <div className={styles.container_left}>
           <div className={styles.overview_panel}>
@@ -115,10 +113,13 @@ const Country = ({ country }) => {
                 {borders.length > 0
                   ? borders.map(border => (
                       <div
-                        key={name}
+                        key={border.name}
                         className={styles.details_borders_country}
                       >
-                        <a target="_blank" href={`/country/${border}`}>
+                        <a
+                          target="_blank"
+                          href={`/country/${border.alpha3Code}`}
+                        >
                           <div className={styles.lilflag}>
                             <img src={border.flag} alt={border.name} />
                             <p className={styles.details_borders_name}>
