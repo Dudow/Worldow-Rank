@@ -1,35 +1,35 @@
-import Head from "next/head";
-import styles from "./Layout.module.css";
-import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
-import Link from "next/link";
-import { Brightness6Rounded } from "@material-ui/icons";
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import Head from 'next/head';
+import styles from './Layout.module.css';
+import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
+import Link from 'next/link';
+import { Brightness6Rounded } from '@material-ui/icons';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 const Layout = ({ children, title }) => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
     document.documentElement.setAttribute(
-      "data-theme",
-      localStorage.getItem("theme")
+      'data-theme',
+      localStorage.getItem('theme'),
     );
 
-    setTheme(localStorage.getItem("theme"));
+    setTheme(localStorage.getItem('theme'));
   }, []);
 
   const switchTheme = () => {
-    if (theme === "dark") {
-      saveTheme("light");
+    if (theme === 'dark') {
+      saveTheme('light');
     } else {
-      saveTheme("dark");
+      saveTheme('dark');
     }
   };
 
-  const saveTheme = (theme) => {
+  const saveTheme = theme => {
     setTheme(theme);
-    localStorage.setItem("theme", theme);
-    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
   };
 
   return (
@@ -60,8 +60,8 @@ const Layout = ({ children, title }) => {
       <footer className={styles.footer}>
         <p>
           <FavoriteRoundedIcon />
-        </p>{" "}
-        Dudow{" "}
+        </p>{' '}
+        Dudow{' '}
         <p>
           <FavoriteRoundedIcon />
         </p>

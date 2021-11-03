@@ -1,4 +1,4 @@
-# Worldow Rank 
+# Worldow Rank
 
 ### A Javascript project using NextJs and API REST
 
@@ -16,7 +16,7 @@ Using it you can search for information about all the countries (not really all)
     Native name
     Neighboring countries
 
-### Credits: 
+### Credits:
 
     Video: https://www.youtube.com/watch?v=v8o9iJU5hEA&feature=youtu.be
     Repository: https://github.com/nghiemthu/world-ranks
