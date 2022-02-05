@@ -1,12 +1,14 @@
 import Link from 'next/link';
+import { GetStaticProps } from 'next';
 import { useEffect, useState } from 'react';
+import { apiV2 } from '../../services/api';
 import Layout from '../../components/Layout';
 import styles from './Country.module.css';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
+import { InfoRow } from './InfoRow';
 
 const getCountry = async code => {
-  const res = await fetch(`https://restcountries.com/v2/alpha/${code}`);
-  const country = await res.json();
+  const country = await apiV2.get(`alpha/${code}`).then(res => res.data);
 
   return country;
 };
@@ -64,46 +66,25 @@ const Country = ({ country }) => {
               </Link>
             </div>
             <h4 className={styles.details_panel_heading}>Details</h4>
-            <div className={styles.details_panel_row}>
-              <div className={styles.details_panel_label}>Capital</div>
-              <div className={styles.details_panel_value}>
-                {country.capital}
-              </div>
-            </div>
-            <div className={styles.details_panel_row}>
-              <div className={styles.details_panel_label}>Sub Region</div>
-              <div className={styles.details_panel_value}>
-                {country.subregion}
-              </div>
-            </div>
-            <div className={styles.details_panel_row}>
-              <div className={styles.details_panel_label}>Language</div>
-              <div className={styles.details_panel_value}>
-                {country.languages.map(({ name }) => name).join(', ')}
-              </div>
-            </div>
-            <div className={styles.details_panel_row}>
-              <div className={styles.details_panel_label}>Currency</div>
-              <div className={styles.details_panel_value}>
-                {country.currencies
+
+            <InfoRow title="Capital" content={country.capital} />
+            <InfoRow title="Sub Region" content={country.subregion} />
+            <InfoRow
+              title="Language"
+              content={country.languages.map(({ name }) => name).join(', ')}
+            />
+            <InfoRow
+              title="Currency"
+              content={
+                country.currencies
                   ? country.currencies
                       .map(({ name, symbol }) => name + ' (' + symbol + ')')
                       .join(', ')
-                  : 'Unknown'}
-              </div>
-            </div>
-            <div className={styles.details_panel_row}>
-              <div className={styles.details_panel_label}>Native name</div>
-              <div className={styles.details_panel_value}>
-                {country.nativeName}
-              </div>
-            </div>
-            <div className={styles.details_panel_row}>
-              <div className={styles.details_panel_label}>Gini</div>
-              <div className={styles.details_panel_value}>
-                {country.gini || 'Unknown'}
-              </div>
-            </div>
+                  : 'Unknown'
+              }
+            />
+            <InfoRow title="Native name" content={country.nativeName} />
+            <InfoRow title="Gini" content={country.gini || 'Unknown'} />
 
             <div className={styles.details_borders}>
               <div className={styles.details_borders_label}>
@@ -142,8 +123,7 @@ const Country = ({ country }) => {
 export default Country;
 
 export const getStaticPaths = async () => {
-  const res = await fetch(`https://restcountries.com/v2/all`);
-  const countries = await res.json();
+  const countries = await apiV2.get('all').then(res => res.data);
 
   const paths = countries.map(country => ({
     params: {
@@ -157,12 +137,13 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const country = await getCountry(params.id);
 
   return {
     props: {
       country,
     },
+    revalidate: 60 * 60 * 24 * 30,
   };
 };

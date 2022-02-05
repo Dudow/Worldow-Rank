@@ -1,0 +1,10 @@
+.details_panel_row {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.details_panel_label {
+  color: var(--text-color-secondary);
+}

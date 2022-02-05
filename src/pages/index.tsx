@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import { GetStaticProps } from 'next';
+
+import { apiV3 } from '../services/api';
+
 import styles from '../styles/Home.module.css';
 import Layout from '../components/Layout';
 import SearchInput from '../components/SearchInput';
@@ -37,13 +41,13 @@ export default function Home({ countries }) {
   );
 }
 
-export const getStaticProps = async () => {
-  const res = await fetch('https://restcountries.com/v3.1/all');
-  const countries = await res.json();
+export const getStaticProps: GetStaticProps = async () => {
+  const countries = await apiV3.get('all').then(res => res.data);
 
   return {
     props: {
       countries,
     },
+    revalidate: 60 * 60 * 24 * 30,
   };
 };
