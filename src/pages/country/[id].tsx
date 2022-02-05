@@ -2,10 +2,10 @@ import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { useEffect, useState } from 'react';
 import { apiV2 } from '../../services/api';
+import InfoRow from './InfoRow';
 import Layout from '../../components/Layout';
 import styles from './Country.module.css';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
-import { InfoRow } from './InfoRow';
 
 const getCountry = async code => {
   const country = await apiV2.get(`alpha/${code}`).then(res => res.data);

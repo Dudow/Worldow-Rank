@@ -5,7 +5,7 @@ interface InfoRowProps {
   content: string | JSX.Element[];
 }
 
-export const InfoRow = ({ title, content }: InfoRowProps) => {
+const InfoRow = ({ title, content }: InfoRowProps) => {
   return (
     <div className={styles.details_panel_row}>
       <div className={styles.details_panel_label}>{title}</div>
@@ -13,3 +13,5 @@ export const InfoRow = ({ title, content }: InfoRowProps) => {
     </div>
   );
 };
+
+export default InfoRow;
