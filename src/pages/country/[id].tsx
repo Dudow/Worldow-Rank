@@ -49,7 +49,7 @@ const Country = ({ country }) => {
               </div>
               <div className={styles.overview_area}>
                 <div className={styles.overview_value}>
-                  {country.area || 'Unknown'}
+                  {country.area + ' km²' || 'Unknown'}
                 </div>
                 <div className={styles.overview_label}>Area</div>
               </div>
