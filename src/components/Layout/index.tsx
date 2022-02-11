@@ -40,10 +40,10 @@ const Layout = ({ children, title }) => {
 
       <header className={styles.header}>
         <Link href="/">
-          <>
+          <a>
             <Image width={30} height={30} src="/static/logo.png" alt="logo" />
             <h2 className={styles.logo_h2}>Worldow Ranks</h2>
-          </>
+          </a>
         </Link>
       </header>
 
