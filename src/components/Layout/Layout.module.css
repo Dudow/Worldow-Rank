@@ -22,6 +22,12 @@
   margin-bottom: 32px;
 }
 
+.header a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .logo_h2 {
   font-size: 25px;
   margin-left: 10px;
