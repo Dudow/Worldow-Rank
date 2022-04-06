@@ -34,7 +34,9 @@ export default function Home({ countries }) {
             onChange={onInputChange}
           />
         </div>
-        <div className={styles.counts}>Found {countries.length} countries</div>
+        <div className={styles.counts}>
+          Found {filteredCountries.length} countries
+        </div>
       </div>
       <CountriesTable countries={filteredCountries} />
     </Layout>
