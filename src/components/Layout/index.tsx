@@ -54,7 +54,7 @@ const Layout = ({ children, title }) => {
       <main className={styles.main}>{children}</main>
 
       <footer className={styles.footer}>
-        <a target="_blank" href={`https://github.com/Dudow`}>
+        <a target="_blank" href={`https://github.com/Dudow`} rel="noreferrer">
           <p>
             <FavoriteRoundedIcon />
           </p>{' '}

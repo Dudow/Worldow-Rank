@@ -99,7 +99,7 @@ const Country = ({ country }) => {
                       >
                         <a
                           target="_blank"
-                          href={`/country/${border.alpha3Code}`}
+                          href={`/country/${border.alpha3Code}`} rel="noreferrer"
                         >
                           <div className={styles.lilflag}>
                             <img src={border.flag} alt={border.name} />
