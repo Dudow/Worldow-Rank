@@ -1,39 +1,39 @@
-import Link from 'next/link';
-import { GetStaticProps } from 'next';
-import { useEffect, useState } from 'react';
-import { apiV2 } from '../../services/api';
-import InfoRow from './InfoRow';
-import Layout from '../../components/Layout';
-import styles from './Country.module.css';
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
+import Link from "next/link"
+import { GetStaticProps } from "next"
+import { useEffect, useState } from "react"
+import { apiV2 } from "../../services/api"
+import InfoRow from "./InfoRow"
+import Layout from "../../components/Layout"
+import styles from "./Country.module.css"
+import ArrowBackRoundedIcon from "@material-ui/icons/ArrowBackRounded"
 
-const getCountry = async code => {
-  const country = await apiV2.get(`alpha/${code}`).then(res => res.data);
+const getCountry = async (code) => {
+  const country = await apiV2.get(`alpha/${code}`).then((res) => res.data)
 
-  return country;
-};
+  return country
+}
 
 const Country = ({ country }) => {
-  const [borders, setBorders] = useState([]);
+  const [borders, setBorders] = useState([])
 
   const getBorders = async () => {
     if (!country.borders) {
-      return [];
+      return []
     }
 
     const borders = await Promise.all(
-      country.borders.map(border => getCountry(border)),
-    );
+      country.borders.map((border) => getCountry(border))
+    )
 
-    setBorders(borders);
-  };
+    setBorders(borders)
+  }
 
   useEffect(() => {
-    getBorders();
-  }, []);
+    getBorders()
+  }, [])
 
   return (
-    <Layout title={country.name + ' - Worldow Rank'}>
+    <Layout title={country.name + " - Worldow Rank"}>
       <div className={styles.container}>
         <div className={styles.container_left}>
           <div className={styles.overview_panel}>
@@ -43,13 +43,13 @@ const Country = ({ country }) => {
             <div className={styles.overview_number}>
               <div className={styles.overview_population}>
                 <div className={styles.overview_value}>
-                  {new Intl.NumberFormat('ja-JP').format(country.population)}
+                  {new Intl.NumberFormat("ja-JP").format(country.population)}
                 </div>
                 <div className={styles.overview_label}>Population</div>
               </div>
               <div className={styles.overview_area}>
                 <div className={styles.overview_value}>
-                  {country.area + ' km²' || 'Unknown'}
+                  {country.area + " km²" || "Unknown"}
                 </div>
                 <div className={styles.overview_label}>Area</div>
               </div>
@@ -71,20 +71,20 @@ const Country = ({ country }) => {
             <InfoRow title="Sub Region" content={country.subregion} />
             <InfoRow
               title="Language"
-              content={country.languages.map(({ name }) => name).join(', ')}
+              content={country.languages.map(({ name }) => name).join(", ")}
             />
             <InfoRow
               title="Currency"
               content={
                 country.currencies
                   ? country.currencies
-                      .map(({ name, symbol }) => name + ' (' + symbol + ')')
-                      .join(', ')
-                  : 'Unknown'
+                      .map(({ name, symbol }) => name + " (" + symbol + ")")
+                      .join(", ")
+                  : "Unknown"
               }
             />
             <InfoRow title="Native name" content={country.nativeName} />
-            <InfoRow title="Gini" content={country.gini || 'Unknown'} />
+            <InfoRow title="Gini" content={country.gini || "Unknown"} />
 
             <div className={styles.details_borders}>
               <div className={styles.details_borders_label}>
@@ -92,14 +92,15 @@ const Country = ({ country }) => {
               </div>
               <div className={styles.details_borders_container}>
                 {borders.length > 0
-                  ? borders.map(border => (
+                  ? borders.map((border) => (
                       <div
                         key={border.name}
                         className={styles.details_borders_country}
                       >
                         <a
                           target="_blank"
-                          href={`/country/${border.alpha3Code}`} rel="noreferrer"
+                          href={`/country/${border.alpha3Code}`}
+                          rel="noreferrer"
                         >
                           <div className={styles.lilflag}>
                             <img src={border.flag} alt={border.name} />
@@ -110,40 +111,40 @@ const Country = ({ country }) => {
                         </a>
                       </div>
                     ))
-                  : 'None'}
+                  : "None"}
               </div>
             </div>
           </div>
         </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Country;
+export default Country
 
 export const getStaticPaths = async () => {
-  const countries = await apiV2.get('all').then(res => res.data);
+  const countries = await apiV2.get("all").then((res) => res.data)
 
-  const paths = countries.map(country => ({
+  const paths = countries.map((country) => ({
     params: {
       id: country.alpha3Code,
     },
-  }));
+  }))
 
   return {
     paths,
     fallback: false,
-  };
-};
+  }
+}
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const country = await getCountry(params.id);
+  const country = await getCountry(params.id)
 
   return {
     props: {
       country,
     },
     revalidate: 60 * 60 * 24 * 30, //30 days
-  };
-};
+  }
+}
