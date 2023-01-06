@@ -2,7 +2,7 @@ name: CI
 on: [push]
 jobs:
   eslint:
-    name: Lint code
+    name: CI Pipeline
     runs-on: ubuntu-latest
 
     strategy:
