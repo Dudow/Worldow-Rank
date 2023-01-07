@@ -30,6 +30,7 @@ jobs:
         run: yarn build
 
       - name: Lighthouse benchmark
-        run: lhci autorun
+        run: lhci collect
+        run: lhci upload
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_TOKEN }}
