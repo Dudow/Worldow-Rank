@@ -1,7 +1,7 @@
 name: PR Deploy and Audit
 on: [pull_request]
 jobs:
-  lint and test:
+  lint_and_test:
     name: CI Pipeline
     runs-on: ubuntu-latest
 
