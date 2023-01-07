@@ -29,3 +29,5 @@ jobs:
 
       - name: Lighthouse benchmark
         run: yarn lighthouse
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
